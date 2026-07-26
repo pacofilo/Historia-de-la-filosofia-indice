@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia de la Filosofía — Materiales de Filosofía</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FAF9F5;
+            --bg-secondary: #F0EDE6;
+            --bg-card: #FFFFFF;
+            --text-primary: #2D2B28;
+            --text-secondary: #6B6560;
+            --text-tertiary: #9B9590;
+            --accent: #D97757;
+            --accent-light: rgba(217, 119, 87, 0.08);
+            --border: rgba(0, 0, 0, 0.07);
+            --border-hover: rgba(0, 0, 0, 0.15);
+            --shadow-md: 0 3px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+            --radius: 14px;
+            --radius-sm: 8px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6; min-height: 100vh; font-size: 16px;
+        }
+
+        /* HEADER */
+        .header {
+            background: var(--bg-primary); border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        }
+        .header-inner {
+            max-width: 1280px; margin: 0 auto; padding: 15px 20px;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 38px; height: 38px; background: var(--accent);
+            border-radius: 10px; display: flex; align-items: center;
+            justify-content: center; color: white; font-weight: 700; font-size: 17px;
+        }
+        .logo-text {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 23px; color: var(--text-primary); letter-spacing: -0.02em;
+        }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 7px;
+            font-size: 13px; font-weight: 500; color: var(--text-secondary);
+            background: var(--bg-secondary); padding: 8px 14px; border-radius: 20px;
+            text-decoration: none; transition: all 0.2s ease; border: 1px solid transparent;
+        }
+        .back-btn:hover { color: var(--accent); border-color: var(--border-hover); }
+
+        /* MAIN */
+        .main { max-width: 1280px; margin: 0 auto; padding: 42px 20px 80px; }
+        .intro { margin: 0 auto 40px; max-width: 820px; text-align: center; }
+        .intro h1 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            font-size: clamp(48px, 8vw, 84px); font-weight: 400; letter-spacing: -0.02em;
+            line-height: 1.1; margin-bottom: 18px;
+            background: linear-gradient(120deg, var(--accent) 0%, #9c4a2c 55%, #6b3420 100%);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 1px 0 rgba(0,0,0,0.03));
+        }
+        .intro .title-rule { display: flex; align-items: center; gap: 12px; max-width: 320px; margin: 0 auto 20px; }
+        .intro .title-rule .tr-line { flex: 1; height: 1.5px; background: var(--accent); opacity: 0.4; }
+        .intro .title-rule .tr-gem { font-size: 10px; color: var(--accent); opacity: 0.7; }
+        .intro p { color: var(--text-secondary); font-size: 16px; line-height: 1.75; }
+
+        /* FEATURED CARD — Autores PAU (foto a toda anchura con overlay) */
+        .featured-card {
+            position: relative; display: block; height: 340px; overflow: hidden;
+            border-radius: var(--radius); text-decoration: none; color: #fff;
+            margin-bottom: 56px; box-shadow: var(--shadow-md);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .featured-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.22); }
+        .featured-photo {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center 22%;
+            transition: transform 0.45s ease;
+        }
+        .featured-card:hover .featured-photo { transform: scale(1.05); }
+        .featured-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(30,20,15,0.05) 0%, rgba(30,18,12,0.55) 58%, rgba(20,10,6,0.88) 100%);
+        }
+        .featured-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 34px; display: flex; flex-direction: column; gap: 8px; }
+        .featured-title { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 38px; letter-spacing: -0.01em; }
+        .featured-desc { font-size: 14.5px; line-height: 1.65; opacity: 0.95; max-width: 640px; }
+        .featured-tag {
+            display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600;
+            background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; width: fit-content; margin-top: 4px;
+        }
+        .featured-arrow {
+            position: absolute; top: 22px; right: 24px; width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(255,255,255,0.18); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center; font-size: 19px;
+        }
+
+        /* SECTION HEADER (época) */
+        .section-header { text-align: center; margin-bottom: 30px; }
+        .sh-icon { font-size: 28px; margin-bottom: 6px; display: block; }
+        .section-title {
+            font-family: 'Instrument Serif', Georgia, serif; font-style: italic;
+            font-size: clamp(30px, 5vw, 44px); font-weight: 400; letter-spacing: 0.01em;
+            margin-bottom: 16px; display: block;
+        }
+        .sh-rule-row { display: flex; align-items: center; gap: 12px; max-width: 500px; margin: 0 auto; }
+        .sh-rule { flex: 1; height: 1.5px; background: var(--accent); opacity: 0.35; }
+        .sh-gem { font-size: 10px; color: var(--accent); opacity: 0.6; flex-shrink: 0; }
+
+        /* GRID — 3 por línea */
+        .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+        /* CARD */
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); text-decoration: none; color: inherit;
+            transition: all 0.22s ease; display: flex; flex-direction: column;
+            overflow: hidden; position: relative;
+        }
+        .card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .card:hover .card-title { color: var(--accent); }
+
+        /* Image — foto significativa incrustada por época, con fondo difuminado tipo Apple */
+        .card-img {
+            width: 100%; aspect-ratio: 4 / 3; overflow: hidden; flex-shrink: 0;
+            background: #fff; display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .card-img .img-bg {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+            filter: blur(22px) brightness(1.15) saturate(0.6);
+            transform: scale(1.2); opacity: 0; transition: opacity 0.4s ease; z-index: 0;
+        }
+        .card-img::after {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(255,255,255,0.50); pointer-events: none; z-index: 1;
+        }
+        .card-img .img-fg {
+            position: relative; z-index: 2; max-width: 100%; max-height: 100%;
+            width: auto; height: auto; object-fit: contain; display: block; opacity: 0;
+            padding: 8px; transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .card-img .img-bg.loaded { opacity: 1; }
+        .card-img .img-fg.loaded { opacity: 1; }
+        .card:hover .card-img .img-fg { transform: scale(1.04); }
+        .card-img-placeholder { font-size: 42px; opacity: 0.18; position: absolute; z-index: 0; transition: opacity 0.3s ease; }
+        .card-img:has(.img-fg.loaded) .card-img-placeholder { opacity: 0; }
+
+        /* Body */
+        .card-body { padding: 20px 22px 18px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+        .card-title { font-size: 17px; font-weight: 600; color: var(--text-primary); transition: color 0.2s ease; line-height: 1.35; padding-right: 20px; }
+        .card-desc { font-size: 14px; color: var(--text-tertiary); line-height: 1.55; }
+        .card-tag {
+            display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500;
+            color: var(--accent); background: var(--accent-light); padding: 3px 9px;
+            border-radius: 6px; width: fit-content; margin-top: 6px;
+        }
+        .card-arrow {
+            position: absolute; bottom: 18px; right: 20px; color: var(--text-tertiary);
+            opacity: 0; transform: translateX(-4px); transition: all 0.2s ease; font-size: 15px;
+        }
+        .card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+
+        .badge-wip { color: #c08a30; background: rgba(192,138,48,0.09); }
+
+        /* FOOTER */
+        .footer { max-width: 1280px; margin: 0 auto; padding: 24px 20px; border-top: 1px solid var(--border); text-align: center; }
+        .footer p { font-size: 13px; color: var(--text-tertiary); }
+
+        /* RESPONSIVE */
+        @media (max-width: 980px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) {
+            .cards-grid { grid-template-columns: 1fr; }
+            .intro h1 { font-size: 30px; }
+            .main { padding: 28px 14px 60px; }
+            .featured-card { height: 260px; }
+            .featured-content { padding: 20px 20px; }
+            .featured-title { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <div class="logo-area">
+            <div class="logo-icon">φ</div>
+            <span class="logo-text">Filosofía</span>
+        </div>
+        <a class="back-btn" href="index.html">← Materiales de Filosofía</a>
+    </div>
+</header>
+
+<main class="main">
+    <div class="intro">
+        <h1>Historia de la Filosofía</h1>
+        <div class="title-rule"><span class="tr-gem">◆</span><span class="tr-line"></span><span class="tr-gem">✧</span><span class="tr-line"></span><span class="tr-gem">◆</span></div>
+        <p>2º de Bachillerato · Recorrido por las grandes épocas del pensamiento occidental, de la Antigüedad a la actualidad.</p>
+    </div>
+
+    <!-- ===== APARTADO PRINCIPAL: AUTORES PAU ===== -->
+    <a class="featured-card" href="https://pacofilo.github.io/Historia-de-la-filosofia/" target="_blank">
+        <img class="featured-photo" src="images/autores-pau.jpg" alt="Autores PAU: Platón, Aristóteles, Descartes, Hume, Kant, Nietzsche, Ortega, Arendt, Beauvoir, Zambrano...">
+        <div class="featured-overlay"></div>
+        <div class="featured-content">
+            <span class="featured-title">Autores PAU</span>
+            <span class="featured-desc">Platón, Aristóteles, Santo Tomás, Descartes, Hume, Kant, Nietzsche y Ortega y Gasset: los autores de la Prueba de Acceso a la Universidad, con textos comentados y esquemas.</span>
+            <span class="featured-tag">✓ Publicado</span>
+        </div>
+        <div class="featured-arrow">→</div>
+    </a>
+
+    <!-- ===== ÉPOCAS HISTÓRICAS ===== -->
+    <div class="section-header">
+        <span class="sh-icon">🕰️</span>
+        <span class="section-title">Épocas de la Historia de la Filosofía</span>
+        <div class="sh-rule-row">
+            <span class="sh-gem">◆</span><span class="sh-rule"></span>
+            <span class="sh-gem">◇</span><span class="sh-rule"></span>
+            <span class="sh-gem">◆</span>
+        </div>
+    </div>
+
+    <div class="cards-grid">
+
+        <a class="card" href="#" data-wiki="The_School_of_Athens">
+            <div class="card-img"><span class="card-img-placeholder">🏛️</span><img class="img-bg" alt=""><img class="img-fg" alt="Filosofía Antigua"></div>
+            <div class="card-body">
+                <span class="card-title">Filosofía Antigua</span>
+                <span class="card-desc">Presocráticos, sofistas, Sócrates, Platón y Aristóteles: el nacimiento de la filosofía occidental.</span>
+                <span class="card-tag badge-wip">🚧 Próximamente</span>
+            </div>
+            <span class="card-arrow">→</span>
+        </a>
+
+        <a class="card" href="#" data-wiki="Thomas_Aquinas">
+            <div class="card-img"><span class="card-img-placeholder">⛪</span><img class="img-bg" alt=""><img class="img-fg" alt="Filosofía Medieval"></div>
+            <div class="card-body">
+                <span class="card-title">Filosofía Medieval</span>
+                <span class="card-desc">Patrística y escolástica: la relación entre fe y razón, de San Agustín a Guillermo de Ockham.</span>
+                <span class="card-tag badge-wip">🚧 Próximamente</span>
+            </div>
+            <span class="card-arrow">→</span>
+        </a>
+
+        <a class="card" href="#" data-wiki="René_Descartes">
+            <div class="card-img"><span class="card-img-placeholder">🔭</span><img class="img-bg" alt=""><img class="img-fg" alt="Filosofía Moderna"></div>
+            <div class="card-body">
+                <span class="card-title">Filosofía Moderna</span>
+                <span class="card-desc">Racionalismo, empirismo e Ilustración: de Descartes a Kant, pasando por Hume y Rousseau.</span>
+                <span class="card-tag badge-wip">🚧 Próximamente</span>
+            </div>
+            <span class="card-arrow">→</span>
+        </a>
+
+        <a class="card" href="#" data-wiki="Friedrich_Nietzsche">
+            <div class="card-img"><span class="card-img-placeholder">💡</span><img class="img-bg" alt=""><img class="img-fg" alt="Filosofía Contemporánea"></div>
+            <div class="card-body">
+                <span class="card-title">Filosofía Contemporánea</span>
+                <span class="card-desc">Del idealismo alemán al existencialismo: Marx, Nietzsche, Ortega y Gasset y el pensamiento del siglo XX.</span>
+                <span class="card-tag badge-wip">🚧 Próximamente</span>
+            </div>
+            <span class="card-arrow">→</span>
+        </a>
+
+    </div>
+
+</main>
+
+<footer class="footer">
+    <p>Materiales elaborados por Francisco Jiménez Amor · Dpto. de Filosofía · IES Alquipir de Cehegín</p>
+</footer>
+
+<script>
+// Carga una imagen significativa y de dominio público por época, vía la API de Wikipedia
+(async () => {
+    const cards = document.querySelectorAll('.card[data-wiki]');
+
+    const loadImage = (card) => {
+        const title = card.dataset.wiki;
+        const imgBg = card.querySelector('.card-img .img-bg');
+        const imgFg = card.querySelector('.card-img .img-fg');
+        if (!imgFg) return;
+
+        fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`)
+            .then(r => r.json())
+            .then(data => {
+                const src = data.originalimage?.source || data.thumbnail?.source;
+                if (!src) return;
+                const bigSrc = src.replace(/\/\d+px-/, '/640px-');
+                if (imgBg) {
+                    imgBg.onload = () => imgBg.classList.add('loaded');
+                    imgBg.src = bigSrc;
+                }
+                imgFg.onload = () => imgFg.classList.add('loaded');
+                imgFg.onerror = () => {};
+                imgFg.src = bigSrc;
+            })
+            .catch(() => {});
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                loadImage(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '200px' });
+
+    cards.forEach(card => observer.observe(card));
+})();
+</script>
+
+</body>
+</html>
