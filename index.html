@@ -37,18 +37,21 @@
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         }
         .header-inner {
-            max-width: 1280px; margin: 0 auto; padding: 15px 20px;
+            position: relative;
+            max-width: 1280px; margin: 0 auto; padding: 26px 20px;
             display: flex; align-items: center; justify-content: space-between; gap: 16px;
         }
-        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-area { display: flex; align-items: center; gap: 14px; z-index: 1; }
         .logo-icon {
-            width: 38px; height: 38px; background: var(--accent);
-            border-radius: 10px; display: flex; align-items: center;
-            justify-content: center; color: white; font-weight: 700; font-size: 17px;
+            width: 44px; height: 44px; background: var(--accent);
+            border-radius: 12px; display: flex; align-items: center;
+            justify-content: center; color: white; font-weight: 700; font-size: 19px; flex-shrink: 0;
         }
         .logo-text {
-            font-family: 'Instrument Serif', Georgia, serif;
-            font-size: 23px; color: var(--text-primary); letter-spacing: -0.02em;
+            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+            font-family: 'Instrument Serif', Georgia, serif; font-style: italic;
+            font-size: clamp(20px, 2.6vw, 32px); color: #2563A8; letter-spacing: -0.01em;
+            white-space: nowrap; text-shadow: 0 1px 0 rgba(0,0,0,0.04);
         }
         .back-btn {
             display: inline-flex; align-items: center; gap: 7px;
@@ -60,11 +63,11 @@
 
         /* MAIN */
         .main { max-width: 1280px; margin: 0 auto; padding: 42px 20px 80px; }
-        .intro { margin: 0 auto 40px; max-width: 820px; text-align: center; }
+        .intro { margin: 0 auto 40px; max-width: 1200px; text-align: center; }
         .intro h1 {
             font-family: 'Instrument Serif', Georgia, serif;
             font-style: italic;
-            font-size: clamp(48px, 8vw, 84px); font-weight: 400; letter-spacing: -0.02em;
+            font-size: clamp(36px, 6vw, 72px); font-weight: 400; letter-spacing: -0.02em; white-space: nowrap;
             line-height: 1.1; margin-bottom: 18px;
             background: linear-gradient(120deg, var(--accent) 0%, #9c4a2c 55%, #6b3420 100%);
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
@@ -75,35 +78,43 @@
         .intro .title-rule .tr-gem { font-size: 10px; color: var(--accent); opacity: 0.7; }
         .intro p { color: var(--text-secondary); font-size: 16px; line-height: 1.75; }
 
-        /* FEATURED CARD — Autores PAU (foto a toda anchura con overlay) */
+        /* FEATURED CARD — Autores PAU (foto completa, sin recortar, banner más grande) */
         .featured-card {
-            position: relative; display: block; height: 340px; overflow: hidden;
+            position: relative; display: flex; align-items: stretch; height: 300px; overflow: hidden;
             border-radius: var(--radius); text-decoration: none; color: #fff;
             margin-bottom: 56px; box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--accent) 0%, #b85a3a 100%);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
         .featured-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.22); }
+        .featured-photo-wrap {
+            position: relative; width: 44%; min-width: 320px; flex-shrink: 0;
+            background: linear-gradient(160deg, #b8946c 0%, #83644a 100%);
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
         .featured-photo {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; object-position: center 22%;
+            width: 100%; height: 100%;
+            object-fit: contain; object-position: center;
             transition: transform 0.45s ease;
         }
-        .featured-card:hover .featured-photo { transform: scale(1.05); }
-        .featured-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(30,20,15,0.05) 0%, rgba(30,18,12,0.55) 58%, rgba(20,10,6,0.88) 100%);
+        .featured-card:hover .featured-photo { transform: scale(1.03); }
+        .featured-mute-btn {
+            position: absolute; bottom: 14px; right: 14px; z-index: 3;
+            width: 38px; height: 38px; border-radius: 50%; border: none;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            font-size: 16px; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease;
         }
-        .featured-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 34px; display: flex; flex-direction: column; gap: 8px; }
-        .featured-title { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 38px; letter-spacing: -0.01em; }
-        .featured-desc { font-size: 14.5px; line-height: 1.65; opacity: 0.95; max-width: 640px; }
-        .featured-tag {
-            display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600;
-            background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; width: fit-content; margin-top: 4px;
-        }
+        .featured-mute-btn:hover { background: rgba(0,0,0,0.7); transform: scale(1.08); }
+        .featured-mute-btn--labeled { width: auto; padding: 0 16px 0 14px; border-radius: 20px; gap: 7px; }
+        .featured-mute-btn--labeled .vmb-icon { font-size: 16px; line-height: 1; }
+        .featured-mute-btn--labeled .vmb-label { font-size: 13px; font-weight: 600; white-space: nowrap; }
+        .featured-content { position: relative; flex: 1; overflow: hidden; background: #14100d; }
+        .featured-content-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; z-index: 0; }
         .featured-arrow {
             position: absolute; top: 22px; right: 24px; width: 40px; height: 40px; border-radius: 50%;
             background: rgba(255,255,255,0.18); backdrop-filter: blur(4px);
-            display: flex; align-items: center; justify-content: center; font-size: 19px;
+            display: flex; align-items: center; justify-content: center; font-size: 19px; z-index: 2;
         }
 
         /* SECTION HEADER (época) */
@@ -111,8 +122,8 @@
         .sh-icon { font-size: 28px; margin-bottom: 6px; display: block; }
         .section-title {
             font-family: 'Instrument Serif', Georgia, serif; font-style: italic;
-            font-size: clamp(30px, 5vw, 44px); font-weight: 400; letter-spacing: 0.01em;
-            margin-bottom: 16px; display: block;
+            font-size: clamp(22px, 3.4vw, 36px); font-weight: 400; letter-spacing: 0.01em;
+            color: #2F8A55; margin-bottom: 16px; display: block; white-space: nowrap;
         }
         .sh-rule-row { display: flex; align-items: center; gap: 12px; max-width: 500px; margin: 0 auto; }
         .sh-rule { flex: 1; height: 1.5px; background: var(--accent); opacity: 0.35; }
@@ -158,6 +169,24 @@
         .card-img-placeholder { font-size: 42px; opacity: 0.18; position: absolute; z-index: 0; transition: opacity 0.3s ease; }
         .card-img:has(.img-fg.loaded) .card-img-placeholder { opacity: 0; }
 
+        /* Vídeo incrustado (p. ej. Filosofía Antigua) — nítido, sin el velo/blur tipo Apple, entero sin recortar */
+        .card-img:has(.card-video)::after { display: none; }
+        .card-img:has(.card-video) { background: var(--text-primary); }
+        .card-video {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: contain; object-position: center; z-index: 1;
+            transition: transform 0.45s ease;
+        }
+        .card:hover .card-video { transform: scale(1.04); }
+        .video-mute-btn {
+            position: absolute; bottom: 12px; right: 12px; z-index: 3;
+            width: 34px; height: 34px; border-radius: 50%; border: none;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            font-size: 15px; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .video-mute-btn:hover { background: rgba(0,0,0,0.7); transform: scale(1.08); }
+
         /* Body */
         .card-body { padding: 20px 22px 18px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
         .card-title { font-size: 17px; font-weight: 600; color: var(--text-primary); transition: color 0.2s ease; line-height: 1.35; padding-right: 20px; }
@@ -181,13 +210,21 @@
 
         /* RESPONSIVE */
         @media (max-width: 980px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 760px) {
+            .featured-card { flex-direction: column; min-height: 0; }
+            .featured-photo-wrap { width: 100%; min-width: 0; height: 200px; }
+            .featured-arrow { top: 16px; right: 16px; }
+        }
         @media (max-width: 640px) {
             .cards-grid { grid-template-columns: 1fr; }
-            .intro h1 { font-size: 30px; }
+            .intro h1 { font-size: 22px; }
+            .section-title { font-size: 14px; }
             .main { padding: 28px 14px 60px; }
-            .featured-card { height: 260px; }
-            .featured-content { padding: 20px 20px; }
-            .featured-title { font-size: 28px; }
+        }
+        @media (max-width: 900px) {
+            .header-inner { flex-direction: column; gap: 10px; padding: 18px 20px; }
+            .logo-text { position: static; transform: none; font-size: 18px; order: 3; }
+            .back-btn { order: 2; }
         }
     </style>
 </head>
@@ -197,7 +234,7 @@
     <div class="header-inner">
         <div class="logo-area">
             <div class="logo-icon">φ</div>
-            <span class="logo-text">Filosofía</span>
+            <span class="logo-text">Historia de la Filosofía 2º de Bachillerato</span>
         </div>
         <a class="back-btn" href="https://pacofilo.github.io/Materiales-de-Filosofia/">← Materiales de Filosofía</a>
     </div>
@@ -205,27 +242,30 @@
 
 <main class="main">
     <div class="intro">
-        <h1>Historia de la Filosofía</h1>
+        <h1>Autores PAU Región de Murcia</h1>
         <div class="title-rule"><span class="tr-gem">◆</span><span class="tr-line"></span><span class="tr-gem">✧</span><span class="tr-line"></span><span class="tr-gem">◆</span></div>
-        <p>2º de Bachillerato · Recorrido por las grandes épocas del pensamiento occidental, de la Antigüedad a la actualidad.</p>
     </div>
 
     <!-- ===== APARTADO PRINCIPAL: AUTORES PAU ===== -->
     <a class="featured-card" href="https://pacofilo.github.io/Historia-de-la-filosofia/" target="_blank">
-        <img class="featured-photo" src="images/autores-pau.jpg" alt="Autores PAU: Platón, Aristóteles, Descartes, Hume, Kant, Nietzsche, Ortega, Arendt, Beauvoir, Zambrano...">
-        <div class="featured-overlay"></div>
+        <div class="featured-photo-wrap">
+            <video class="featured-photo" autoplay muted loop playsinline preload="metadata" aria-label="Autores PAU: Platón, Aristóteles, Descartes, Hume, Kant, Nietzsche, Ortega, Arendt, Beauvoir, Zambrano...">
+                <source src="videos/autores-pau.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="featured-mute-btn" aria-label="Activar sonido" onclick="event.preventDefault(); event.stopPropagation(); const v=this.previousElementSibling; v.muted=!v.muted; this.textContent = v.muted ? '🔇' : '🔊'; this.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar sonido');">🔇</button>
+        </div>
         <div class="featured-content">
-            <span class="featured-title">Autores PAU</span>
-            <span class="featured-desc">Platón, Aristóteles, Santo Tomás, Descartes, Hume, Kant, Nietzsche y Ortega y Gasset: los autores de la Prueba de Acceso a la Universidad, con textos comentados y esquemas.</span>
-            <span class="featured-tag">✓ Publicado</span>
+            <video class="featured-content-video autoplay-sound" autoplay loop playsinline preload="metadata" aria-label="Autores PAU">
+                <source src="videos/autores-pau-fondo.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="featured-mute-btn featured-mute-btn--labeled" aria-label="Silenciar sonido" onclick="event.preventDefault(); event.stopPropagation(); const v=this.previousElementSibling; v.muted=!v.muted; this.querySelector('.vmb-icon').textContent = v.muted ? '🔇' : '🔊'; this.querySelector('.vmb-label').textContent = v.muted ? 'Activar sonido' : 'Silenciar sonido'; this.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar sonido');"><span class="vmb-icon">🔊</span><span class="vmb-label">Silenciar sonido</span></button>
         </div>
         <div class="featured-arrow">→</div>
     </a>
 
     <!-- ===== ÉPOCAS HISTÓRICAS ===== -->
     <div class="section-header">
-        <span class="sh-icon">🕰️</span>
-        <span class="section-title">Épocas de la Historia de la Filosofía</span>
+        <span class="section-title">Épocas de la Historia de la Filosofía (Saberes básicos)</span>
         <div class="sh-rule-row">
             <span class="sh-gem">◆</span><span class="sh-rule"></span>
             <span class="sh-gem">◇</span><span class="sh-rule"></span>
@@ -235,41 +275,91 @@
 
     <div class="cards-grid">
 
-        <a class="card" href="#" data-wiki="The_School_of_Athens">
-            <div class="card-img"><span class="card-img-placeholder">🏛️</span><img class="img-bg" alt=""><img class="img-fg" alt="Filosofía Antigua"></div>
+        <a class="card" href="#">
+            <div class="card-img">
+                <video class="card-video" autoplay muted loop playsinline preload="metadata" aria-label="Acrópolis de Atenas">
+                    <source src="videos/acropolis.mp4" type="video/mp4">
+                </video>
+                <button type="button" class="video-mute-btn" aria-label="Activar sonido" onclick="event.preventDefault(); event.stopPropagation(); const v=this.previousElementSibling; v.muted=!v.muted; this.textContent = v.muted ? '🔇' : '🔊'; this.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar sonido');">🔇</button>
+            </div>
             <div class="card-body">
                 <span class="card-title">Filosofía Antigua</span>
-                <span class="card-desc">Presocráticos, sofistas, Sócrates, Platón y Aristóteles: el nacimiento de la filosofía occidental.</span>
+                <span class="card-desc"><strong>S. VII a.C. – s. VI d.C.</strong> Nace en Grecia con los presocráticos (Tales, Heráclito, Pitágoras), en busca del arjé o principio de la realidad. Sigue el período clásico con Sócrates, Platón y Aristóteles, y después las escuelas helenísticas (estoicismo, epicureísmo, escepticismo) hasta el neoplatonismo de Plotino.</span>
                 <span class="card-tag badge-wip">🚧 Próximamente</span>
             </div>
             <span class="card-arrow">→</span>
         </a>
 
-        <a class="card" href="#" data-wiki="Thomas_Aquinas">
-            <div class="card-img"><span class="card-img-placeholder">⛪</span><img class="img-bg" alt=""><img class="img-fg" alt="Filosofía Medieval"></div>
+        <a class="card" href="#">
+            <div class="card-img">
+                <video class="card-video" autoplay muted loop playsinline preload="metadata" aria-label="Filosofía Medieval">
+                    <source src="videos/edad-media.mp4" type="video/mp4">
+                </video>
+                <button type="button" class="video-mute-btn" aria-label="Activar sonido" onclick="event.preventDefault(); event.stopPropagation(); const v=this.previousElementSibling; v.muted=!v.muted; this.textContent = v.muted ? '🔇' : '🔊'; this.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar sonido');">🔇</button>
+            </div>
             <div class="card-body">
                 <span class="card-title">Filosofía Medieval</span>
-                <span class="card-desc">Patrística y escolástica: la relación entre fe y razón, de San Agustín a Guillermo de Ockham.</span>
+                <span class="card-desc"><strong>S. VI – XV.</strong> Dominada por la síntesis entre fe y razón. Patrística (Agustín de Hipona) y Escolástica (Tomás de Aquino, Duns Scoto, Guillermo de Ockham), con aportaciones también del pensamiento árabe (Averroes, Avicena) y judío (Maimónides).</span>
                 <span class="card-tag badge-wip">🚧 Próximamente</span>
             </div>
             <span class="card-arrow">→</span>
         </a>
 
-        <a class="card" href="#" data-wiki="René_Descartes">
-            <div class="card-img"><span class="card-img-placeholder">🔭</span><img class="img-bg" alt=""><img class="img-fg" alt="Filosofía Moderna"></div>
+        <a class="card" href="#">
+            <div class="card-img">
+                <video class="card-video" autoplay muted loop playsinline preload="metadata" aria-label="Filosofía Renacentista">
+                    <source src="videos/renacimiento.mp4" type="video/mp4">
+                </video>
+                <button type="button" class="video-mute-btn" aria-label="Activar sonido" onclick="event.preventDefault(); event.stopPropagation(); const v=this.previousElementSibling; v.muted=!v.muted; this.textContent = v.muted ? '🔇' : '🔊'; this.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar sonido');">🔇</button>
+            </div>
+            <div class="card-body">
+                <span class="card-title">Filosofía Renacentista</span>
+                <span class="card-desc"><strong>S. XV – XVI.</strong> Transición hacia el humanismo, recuperación de las fuentes clásicas y ruptura con el pensamiento escolástico: Erasmo, Maquiavelo y Giordano Bruno.</span>
+                <span class="card-tag badge-wip">🚧 Próximamente</span>
+            </div>
+            <span class="card-arrow">→</span>
+        </a>
+
+        <a class="card" href="#">
+            <div class="card-img">
+                <video class="card-video" autoplay muted loop playsinline preload="metadata" aria-label="Filosofía Moderna">
+                    <source src="videos/edad-moderna.mp4" type="video/mp4">
+                </video>
+                <button type="button" class="video-mute-btn" aria-label="Activar sonido" onclick="event.preventDefault(); event.stopPropagation(); const v=this.previousElementSibling; v.muted=!v.muted; this.textContent = v.muted ? '🔇' : '🔊'; this.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar sonido');">🔇</button>
+            </div>
             <div class="card-body">
                 <span class="card-title">Filosofía Moderna</span>
-                <span class="card-desc">Racionalismo, empirismo e Ilustración: de Descartes a Kant, pasando por Hume y Rousseau.</span>
+                <span class="card-desc"><strong>S. XVII – XVIII.</strong> Gira en torno al sujeto y el conocimiento. Racionalismo (Descartes, Spinoza, Leibniz) frente a empirismo (Locke, Hume, Berkeley), y la síntesis kantiana que cierra el período con el idealismo trascendental.</span>
                 <span class="card-tag badge-wip">🚧 Próximamente</span>
             </div>
             <span class="card-arrow">→</span>
         </a>
 
-        <a class="card" href="#" data-wiki="Friedrich_Nietzsche">
-            <div class="card-img"><span class="card-img-placeholder">💡</span><img class="img-bg" alt=""><img class="img-fg" alt="Filosofía Contemporánea"></div>
+        <a class="card" href="#">
+            <div class="card-img">
+                <video class="card-video" autoplay muted loop playsinline preload="metadata" aria-label="Filosofía Contemporánea">
+                    <source src="videos/filosofia-contemporanea.mp4" type="video/mp4">
+                </video>
+                <button type="button" class="video-mute-btn" aria-label="Activar sonido" onclick="event.preventDefault(); event.stopPropagation(); const v=this.previousElementSibling; v.muted=!v.muted; this.textContent = v.muted ? '🔇' : '🔊'; this.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar sonido');">🔇</button>
+            </div>
             <div class="card-body">
                 <span class="card-title">Filosofía Contemporánea</span>
-                <span class="card-desc">Del idealismo alemán al existencialismo: Marx, Nietzsche, Ortega y Gasset y el pensamiento del siglo XX.</span>
+                <span class="card-desc"><strong>S. XIX – XX.</strong> Idealismo alemán (Hegel), marxismo, positivismo, fenomenología (Husserl), existencialismo (Heidegger, Sartre), filosofía analítica (Frege, Russell, Wittgenstein) y Escuela de Frankfurt, entre otras corrientes.</span>
+                <span class="card-tag badge-wip">🚧 Próximamente</span>
+            </div>
+            <span class="card-arrow">→</span>
+        </a>
+
+        <a class="card" href="#">
+            <div class="card-img">
+                <video class="card-video" autoplay muted loop playsinline preload="metadata" aria-label="Filosofía Actual">
+                    <source src="videos/epoca-actual.mp4" type="video/mp4">
+                </video>
+                <button type="button" class="video-mute-btn" aria-label="Activar sonido" onclick="event.preventDefault(); event.stopPropagation(); const v=this.previousElementSibling; v.muted=!v.muted; this.textContent = v.muted ? '🔇' : '🔊'; this.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar sonido');">🔇</button>
+            </div>
+            <div class="card-body">
+                <span class="card-title">Filosofía Actual</span>
+                <span class="card-desc"><strong>S. XXI.</strong> Posmodernidad, pensamiento poscolonial, filosofía de la mente y de la tecnología, y debates de ética aplicada: bioética e inteligencia artificial.</span>
                 <span class="card-tag badge-wip">🚧 Próximamente</span>
             </div>
             <span class="card-arrow">→</span>
@@ -284,6 +374,29 @@
 </footer>
 
 <script>
+// Vídeos que deben empezar con sonido activado por defecto (si el navegador lo permite)
+document.querySelectorAll('video.autoplay-sound').forEach((v) => {
+    const btn = v.nextElementSibling;
+    const setMutedUI = (muted) => {
+        if (!btn) return;
+        const icon = btn.querySelector('.vmb-icon');
+        const label = btn.querySelector('.vmb-label');
+        if (icon) icon.textContent = muted ? '🔇' : '🔊';
+        if (label) label.textContent = muted ? 'Activar sonido' : 'Silenciar sonido';
+        btn.setAttribute('aria-label', muted ? 'Activar sonido' : 'Silenciar sonido');
+    };
+    v.muted = false;
+    const playPromise = v.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            // El navegador bloquea el autoplay con sonido: reproducimos silenciado como alternativa
+            v.muted = true;
+            v.play().catch(() => {});
+            setMutedUI(true);
+        });
+    }
+});
+
 // Carga una imagen significativa y de dominio público por época, vía la API de Wikipedia
 (async () => {
     const cards = document.querySelectorAll('.card[data-wiki]');
