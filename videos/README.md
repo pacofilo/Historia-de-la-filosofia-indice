@@ -1,14 +1,14 @@
 # Carpeta de videos
 
-Sube aqui los videos con estos nombres exactos (minusculas, sin acentos ni espacios), porque el HTML ya enlaza a ellos:
+Sube aqui los videos usando exactamente estos nombres de archivo (mayusculas, tildes y espacios incluidos tal cual), porque el HTML ya enlaza a ellos:
 
 ```
-autores-pau.mp4
-autores-pau-fondo.mp4
-acropolis.mp4
-edad-media.mp4
-renacimiento.mp4
-edad-moderna.mp4
-filosofia-contemporanea.mp4
-epoca-actual.mp4
+Filósofos 2.mp4
+Filósofos vídeo.mp4
+acrópolis.mp4
+Edad Media.mp4
+Renacimiento.mp4
+Edad moderna.mp4
+Filosofía contemporánea.mp4
+Época actual.mp4
 ```
