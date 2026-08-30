@@ -126,13 +126,18 @@
             display: flex; align-items: center; justify-content: center; font-size: 19px; z-index: 2;
         }
 
-        /* SEPARADOR DE APARTADOS — línea decorativa para marcar un bloque nuevo, distinto de las Épocas */
-        .section-divider {
-            display: flex; align-items: center; gap: 16px;
-            margin: 64px 0 40px;
+        /* SEPARADOR DE APARTADOS — franja a todo el ancho de pantalla, para marcar un bloque nuevo, distinto de las Épocas */
+        .section-divider-img {
+            width: 100vw;
+            margin: 56px calc(-50vw + 50%) 40px;
+            height: 46px;
+            background-image: url('images/section-divider-strip.jpg');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: block;
         }
-        .sd-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--border-hover), transparent); }
-        .sd-gem { font-size: 13px; color: var(--text-tertiary); flex-shrink: 0; }
+        @media (max-width: 640px) { .section-divider-img { height: 30px; margin: 40px calc(-50vw + 50%) 28px; } }
 
         /* FEATURED CARD — Disertaciones (mitad izquierda: título, no vídeo) */
         .featured-card--disertaciones { background: linear-gradient(135deg, #E7EFF9 0%, #CFE0F2 100%); }
@@ -399,11 +404,7 @@
     </div>
 
     <!-- ===== APARTADO NUEVO: DISERTACIONES (separado de Épocas) ===== -->
-    <div class="section-divider">
-        <span class="sd-line"></span>
-        <span class="sd-gem">✦</span>
-        <span class="sd-line"></span>
-    </div>
+    <div class="section-divider-img" role="presentation" aria-hidden="true"></div>
 
     <a class="featured-card featured-card--disertaciones" href="https://pacofilo.github.io/DISERTACIONES/" target="_blank">
         <div class="featured-photo-wrap featured-photo-wrap--text">
