@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historia de la Filosofía — Materiales de Filosofía</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fredoka:wght@500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #FAF9F5;
@@ -124,6 +124,32 @@
             position: absolute; top: 22px; right: 24px; width: 40px; height: 40px; border-radius: 50%;
             background: rgba(255,255,255,0.18); backdrop-filter: blur(4px);
             display: flex; align-items: center; justify-content: center; font-size: 19px; z-index: 2;
+        }
+
+        /* SEPARADOR DE APARTADOS — línea decorativa para marcar un bloque nuevo, distinto de las Épocas */
+        .section-divider {
+            display: flex; align-items: center; gap: 16px;
+            margin: 64px 0 40px;
+        }
+        .sd-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--border-hover), transparent); }
+        .sd-gem { font-size: 13px; color: var(--text-tertiary); flex-shrink: 0; }
+
+        /* FEATURED CARD — Disertaciones (mitad izquierda: título, no vídeo) */
+        .featured-card--disertaciones { background: linear-gradient(135deg, #E7EFF9 0%, #CFE0F2 100%); }
+        .featured-photo-wrap--text {
+            background: linear-gradient(160deg, #F4F8FC 0%, #E2ECF7 100%);
+            flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 24px 20px; gap: 14px;
+        }
+        .featured-title-text {
+            font-family: 'Fredoka', 'DM Sans', sans-serif; font-weight: 700; font-style: normal;
+            font-size: clamp(34px, 4.2vw, 52px); letter-spacing: -0.01em; line-height: 1;
+            color: #2563A8;
+        }
+        .featured-cta {
+            font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+            color: #2563A8; background: rgba(37, 99, 168, 0.1);
+            padding: 8px 18px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px;
         }
 
         /* SECTION HEADER (época) */
@@ -371,6 +397,28 @@
         </a>
 
     </div>
+
+    <!-- ===== APARTADO NUEVO: DISERTACIONES (separado de Épocas) ===== -->
+    <div class="section-divider">
+        <span class="sd-line"></span>
+        <span class="sd-gem">✦</span>
+        <span class="sd-line"></span>
+    </div>
+
+    <a class="featured-card featured-card--disertaciones" href="https://pacofilo.github.io/DISERTACIONES/" target="_blank">
+        <div class="featured-photo-wrap featured-photo-wrap--text">
+            <span class="featured-title-text">Disertaciones</span>
+            <span class="featured-cta">👉 Pincha aquí para ver las disertaciones</span>
+        </div>
+        <div class="featured-content">
+            <video class="featured-content-video" autoplay muted loop playsinline preload="metadata" aria-label="Disertaciones">
+                <source src="videos/disertaciones-featured.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="featured-mute-btn" aria-label="Activar sonido" onclick="event.preventDefault(); event.stopPropagation(); toggleSound(this);">🔇</button>
+            <button type="button" class="featured-fullscreen-btn" aria-label="Ver a pantalla completa" onclick="event.preventDefault(); event.stopPropagation(); toggleFullscreen(this);">⛶</button>
+        </div>
+        <div class="featured-arrow">→</div>
+    </a>
 
 </main>
 
